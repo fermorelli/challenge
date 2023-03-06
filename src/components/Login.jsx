@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from 'axios';
+import swal from '@sweetalert/with-react';
 
 export const Login = () =>{
     const [username, setUsername] = useState('');
@@ -12,16 +13,19 @@ export const Login = () =>{
 
       if (!username || !password) {
         setError('Username and password are required.');
+        swal({title: error, icon: "error"})
         return;
       }
 
       if (!username && !regEx.test(username)){
         setError('Email must be a valid format');
+        swal({title: error, icon: "error"})
         return;
       }
 
-      if (username !== 'challenge@alkemy.org' || password !== 'react'){
+      if (username !== 'challenge@alkemy.org' || password !== 'REACT'){
         setError('Invalid credentials');
+        swal({title: error, icon: "error"})
         return;
       }
 
@@ -34,6 +38,7 @@ export const Login = () =>{
       })
       .then(res => {
         console.log(res);
+        swal({title: 'Login successful', icon: 'success'})
       })
 
     };
@@ -58,7 +63,6 @@ export const Login = () =>{
             onChange={(event) => setPassword(event.target.value)}
           />
         </div>
-        {error && <div>{error}</div>}
         <button type="submit">Login</button>
       </form>
     );
